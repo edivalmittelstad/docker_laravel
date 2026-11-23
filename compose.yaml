@@ -1,0 +1,35 @@
+services:
+  
+  php-laravel:
+    build: .
+    container_name: php-laravel
+    ports:
+      - "8080:80"
+    volumes:
+      - ./www:/var/www/html
+    env_file: .env
+    command: sleep infinity
+  
+  mdb-laravel:
+    image: mariadb:latest
+    container_name: mdb-laravel
+    env_file: .env
+    ports:
+      - "3306:3306"
+    volumes:
+      - mdb_laravel_data:/var/lib/mysql
+    
+  pg-laravel:
+    image: postgres:latest
+    container_name: pg-laravel
+    env_file: .env
+    ports:
+      - "5432:5432"
+    volumes:
+      - pg_laravel_data:/var/lib/postgresql/data
+
+volumes:
+  mdb_laravel_data:
+    driver: local
+  pg_laravel_data:
+    driver: local
